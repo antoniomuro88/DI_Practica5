@@ -23,21 +23,39 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 
+/**
+ * 
+ * Esta clase crea la ventana para consultar los tickets de la base de datos.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
+
 public class ConsultaTicket extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
+
+	/** Tabla JTable donde se volcarán los datos de los tickets. */
 	private JTable modelo;
 
+	/** Variable donde se guardará el result de la conexión a la base de datos */
 	Connection conexion = null;
+
+	/** Variable donde se guardará la sentencia sql */
 	PreparedStatement prepStat = null;
+
+	/**
+	 * Variable donde se guardará el resultado de la ejecución de la sentencia sql
+	 */
 	ResultSet reSet = null;
 
 	/**
-	 * Create the frame.
+	 * Constructor por defecto en el que creamos el frame y la tabla en la que
+	 * aparecerán los tickets.
 	 */
 	public ConsultaTicket() {
 		setType(Type.UTILITY);
@@ -64,14 +82,19 @@ public class ConsultaTicket extends JFrame {
 		modelo.setBorder(new LineBorder(new Color(0, 0, 0)));
 		modelo.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Fecha", "Descripci\u00F3n", "Cantidad", "Total" }) {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			@SuppressWarnings("rawtypes")
 			Class[] columnTypes = new Class[] { Object.class, String.class, Object.class, Object.class };
 
 			@SuppressWarnings({ "unchecked", "rawtypes" })
+			/**
+			 * Método para recibir los tipos de las columnas de la tabla
+			 * 
+			 * @param columnIndex, Número entero con el índice de columna
+			 * @return colunmTypes, Devuelve un array con los tipos de columna según el
+			 *         indice
+			 */
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}

@@ -25,18 +25,26 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
+/**
+ * Esta clase crea la ventana para elegir entre consultar todos los artículos de la base de datos o generar un documento PDF
+ * con todos los artículos de la base de datos.
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+
+ */
+
 public class Articulos2 extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 */
 
+	/**
+	 * Constructor por defecto en el que creamos el frame y los JButton.
+	 */
+	
 	public Articulos2() {
 		setType(Type.UTILITY);
 		setResizable(false);

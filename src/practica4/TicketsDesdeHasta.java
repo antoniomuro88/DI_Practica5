@@ -8,7 +8,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -27,14 +26,27 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import com.toedter.calendar.JDateChooser;
 
+/**
+ * 
+ * Esta clase crea la ventana para generar un documento PDF de tickets en un
+ * rango de fechas seleccionados mediante JDateChooser usando JasperReports.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
+
 public class TicketsDesdeHasta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
 	/**
-	 * Create the frame.
+	 * Constructor por defecto en el que creamos el frame y los JDateChooser.
 	 */
+
 	public TicketsDesdeHasta() {
 		setType(Type.UTILITY);
 		setResizable(false);
@@ -63,58 +75,55 @@ public class TicketsDesdeHasta extends JFrame {
 		JButton btnConsulta = new JButton("Generar PDF");
 		btnConsulta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(desde.getDate()==null || hasta.getDate()==null)
-				{
+
+				if (desde.getDate() == null || hasta.getDate() == null) {
 					JOptionPane.showMessageDialog(null, "Primero debe indicar el rango de fechas");
 				}
-				
-				else if(desde.getDate().after(hasta.getDate()) ||ChronoUnit.DAYS.between(desde.getDate().toInstant(), hasta.getDate().toInstant())==0)
-				{
+
+				else if (desde.getDate().after(hasta.getDate())
+						|| ChronoUnit.DAYS.between(desde.getDate().toInstant(), hasta.getDate().toInstant()) == 0) {
 					JOptionPane.showMessageDialog(null, "la fecha 'Desde' debe ser ANTERIOR a la fecha 'Hasta'");
+				} else {
+					try {
+						// Compilar el informe generando fichero jasper
+						String nomfich = "report3.jrxml";
+						JasperCompileManager.compileReportToFile(nomfich);
+						System.out.println("¡Fichero '" + nomfich + "' generado con éxito!");
+						// Objeto para guardar parámetros necesarios para el informe
+						HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+						parametros.put("desde", desde.getDate());
+						parametros.put("hasta", hasta.getDate());
+
+						// Cargar el informe compilado
+						JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("report3.jasper");
+
+						// Conectar a la base de datos para sacar la información
+						Class.forName("com.mysql.cj.jdbc.Driver");
+
+						String servidor = "jdbc:mysql://localhost:3306/tiendecita?serverTimezone=UTC";
+						String usuarioDB = "root";
+						String passwordDB = "Studium2019;";
+						Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
+
+						// Completar el informe con los datos de la base de datos
+						JasperPrint print = JasperFillManager.fillReport(report, parametros, conexion);
+
+						// Mostrar el informe en JasperViewer
+						// JasperViewer.viewReport(print, false);
+
+						// Para exportarlo a pdf
+						JasperExportManager.exportReportToPdfFile(print, "InformeFechaTickets.pdf");
+
+						// Abrir el fichero PDF generado
+						File path = new File("InformeFechaTickets.pdf");
+						Desktop.getDesktop().open(path);
+					} catch (Exception o) {
+						System.out.println("Error: " + o.toString());
+					}
+
 				}
-				else
-				{
-				try {
-					// Compilar el informe generando fichero jasper
-					String nomfich = "report3.jrxml";
-					JasperCompileManager.compileReportToFile(nomfich);
-					System.out.println("¡Fichero '" + nomfich + "' generado con éxito!");
-					// Objeto para guardar parámetros necesarios para el informe
-					HashMap<String, Object> parametros = new HashMap<String, Object>();
-
-					parametros.put("desde", desde.getDate());
-					parametros.put("hasta", hasta.getDate());
-
-					// Cargar el informe compilado
-					JasperReport report = (JasperReport) JRLoader.loadObjectFromFile("report3.jasper");
-
-					// Conectar a la base de datos para sacar la información
-					Class.forName("com.mysql.cj.jdbc.Driver");
-
-					String servidor = "jdbc:mysql://localhost:3306/tiendecita?serverTimezone=UTC";
-					String usuarioDB = "root";
-					String passwordDB = "Studium2019;";
-					Connection conexion = DriverManager.getConnection(servidor, usuarioDB, passwordDB);
-
-					// Completar el informe con los datos de la base de datos
-					JasperPrint print = JasperFillManager.fillReport(report, parametros, conexion);
-
-					// Mostrar el informe en JasperViewer
-					//JasperViewer.viewReport(print, false);
-
-					// Para exportarlo a pdf
-					JasperExportManager.exportReportToPdfFile(print, "InformeFechaTickets.pdf");
-
-					// Abrir el fichero PDF generado
-					File path = new File("InformeFechaTickets.pdf");
-					Desktop.getDesktop().open(path);
-				} catch (Exception o) {
-					System.out.println("Error: " + o.toString());
-				}
-
 			}
-				}
 		});
 		btnConsulta.setBounds(94, 112, 122, 23);
 		panel.add(btnConsulta);

@@ -11,20 +11,26 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
+/**
+ * 
+ * Esta clase crea la ventana que permite acceder a las operaciones con los
+ * tickets.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
+
 public class Tickets extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
+	 * Constructor por defecto en el que creamos el frame donde aparecerán el panel
+	 * y los botones: 'Nuevo' y 'Ver Tickets'.
 	 */
 	public Tickets() {
 		setType(Type.UTILITY);

@@ -38,17 +38,34 @@ import javax.swing.JLayeredPane;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 
+/**
+ * 
+ * Esta clase crea la ventana para crear nuevos tickets.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
 public class NuevoTicket extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
+
+	/** Campo de texto para la cantidad del articulo */
 	private JTextField txtCantidad;
+
+	/** Campo de texto para el precio del articulo */
 	private JTextField txtPrecio;
+
+	/** Campo de texto para la fecha del articulo */
 	private JTextField txtFecha;
+
+	/** Campo de texto para el total del articulo */
 	private JTextField txtTotal;
+
+	/** Tabla JTable para meter la cesta de la compra de la tienda */
 	private JTable modelo;
 
 	Connection conexion = null;
@@ -62,8 +79,10 @@ public class NuevoTicket extends JFrame {
 	int vacio = 0;
 
 	/**
-	 * Create the frame.
+	 * Constructor por defecto en el que creamos el frame donde aparecerán el panel,
+	 * los campos y los botones de NuevoTicket.
 	 */
+
 	public NuevoTicket() {
 		setType(Type.UTILITY);
 		setTitle("Nuevo Ticket");

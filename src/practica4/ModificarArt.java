@@ -1,6 +1,7 @@
 package practica4;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -17,26 +18,47 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+/**
+ * Esta clase crea la ventana para modificar los artículos.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
 public class ModificarArt extends JFrame {
 
-	/**
-	 * 
-	 */
+	
+
 	private static final long serialVersionUID = 9053920947070902007L;
 
+	/** Variable donde se guardará el result de la conexión a la base de datos */
+	Connection conexion = null;
+
+	/** Crea una variable del tipo PreparedStatement */
+	PreparedStatement prepStat = null;
+
+	/** Crea una variable del tipo PreparedStatement */
+	PreparedStatement prepStat1 = null;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
-	/**
-	 * Create the frame.
-	 */
-	Connection conexion = null;
-	PreparedStatement prepStat = null;
-	ResultSet reSet = null;
-
-	int vacio = 0;
+	/** Campo de texto para la descripcion del articulo */
 	private JTextField txtDesc;
-	private JTextField txtPrec;
+
+	/** Campo de texto para la cantidad del articulo */
 	private JTextField txtCant;
+
+	/** Campo de texto para el precio del articulo */
+	private JTextField txtPrec;
+
+	/** Variable entera para guardar la cantidad de artículos de la base de datos */
+	int vacio = 0;
+
+	/**
+	 * Constructor por defecto en el que creamos el frame donde aparecerán el panel
+	 * y los botones de ModificarArt.
+	 */
 
 	public ModificarArt() {
 		setType(Type.UTILITY);

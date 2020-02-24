@@ -11,26 +11,46 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
+/**
+ * 
+ * Esta clase crea la ventana para insertar artículos.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
+
 public class InsertarArticulo extends JFrame {
 
+	/** Variable donde se guardará el result de la conexión a la base de datos */
 	Connection conexion = null;
+
+	/** Crea una variable del tipo PreparedStatement */
 	PreparedStatement prepStat = null;
-	ResultSet reSet = null;
-	/**
-	 * 
-	 */
+
+	/** Crea una variable del tipo PreparedStatement */
+	PreparedStatement prepStat1 = null;
+
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
+
+	/** Campo de texto para la descripcion del articulo */
 	private JTextField textDesc;
+
+	/** Campo de texto para la cantidad del articulo */
 	private JTextField textCan;
+
+	/** Campo de texto para el precio del articulo */
 	private JTextField textPrec;
 
 	/**
-	 * Create the frame.
+	 * Creamos el frame donde aparecerán el panel y los botones de
+	 * InsertarArticulos.
 	 */
 
 	public InsertarArticulo() {
@@ -79,11 +99,11 @@ public class InsertarArticulo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (textDesc.getText().equals("") || textPrec.getText().equals("") || textCan.getText().equals("")) {
-					
+					JOptionPane.showMessageDialog(null, "Debe rellenar el formulario primero");
 				} else {
 					String sql = ("Insert into Articulos (descripcionArticulo, precioArticulo, cantidadArticulo) values (?,?,?)");
 					conexion = Conexion.conectar();
-					try {JOptionPane.showMessageDialog(null, "Debe rellenar el formulario primero");
+					try {
 
 						prepStat = conexion.prepareStatement(sql);
 						prepStat.setString(1, textDesc.getText());

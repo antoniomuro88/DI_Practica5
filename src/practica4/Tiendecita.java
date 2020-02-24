@@ -10,18 +10,29 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * Esta clase crea la ventana principal de la aplicación "Tiendecita".
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
 public class Tiendecita extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * Este es el método principal el cual crea el frame Tiendecita.
+	 * 
+	 * @param args No se utiliza.
+	 * @exception Exception Lanza excepción si falla la ejecución.
+	 * @see Exception
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -35,7 +46,8 @@ public class Tiendecita extends JFrame {
 	}
 
 	/**
-	 * Ventanas
+	 * Constructor por defecto en el que creamos el frame donde aparecerán el panel
+	 * y los botones de la ventana principal.
 	 */
 
 	public Tiendecita() {

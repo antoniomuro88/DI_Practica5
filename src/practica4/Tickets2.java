@@ -11,21 +11,27 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
+/**
+ * 
+ * Esta clase crea la ventana para elegir entre consultar todos los tickets de
+ * la base de datos o generar un documento PDF para un rango de fechas.
+ * 
+ * @author: Antonio MuRo
+ * @version: 20/02/2020/A
+ * 
+ */
+
 public class Tickets2 extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	/** Panel JPanel que contiene el resto de elementos */
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * Constructor por defecto en el que creamos el frame y los Jbutton.
 	 */
 
-	/**
-	 * Create the frame.
-	 */
 	public Tickets2() {
 		setType(Type.UTILITY);
 		setResizable(false);
